@@ -1,16 +1,8 @@
-# calculator
+# Flutter Calculator - Neumorphism style
+<p align="center">
+  <img src="https://github.com/MatejMa2ur/flutter-calculator/assets/41269745/d47c726d-5dc3-4a4d-b534-15e196f69fff" width="200">
+  <img src="https://github.com/MatejMa2ur/flutter-calculator/assets/41269745/5ca0c906-2bee-47ed-8f0d-69f2c467b464" width="200">
 
-A new Flutter project.
+</p>
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+A Flutter application for [Reverse Polish Notation](https://en.wikipedia.org/wiki/Reverse_Polish_notation) calculator.
