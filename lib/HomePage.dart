@@ -1,3 +1,4 @@
+import 'package:calculator/Service/CalculatorService.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:gusto_neumorphic/gusto_neumorphic.dart';
 
@@ -9,8 +10,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  List<double> stack = [];
-  String input = "";
+  CalculatorService calculator = CalculatorService();
 
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,7 +30,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       child: Padding(
                         padding: const EdgeInsets.all(20.0),
                         child: Text(
-                          "[ ${stack.join(",")} ]",
+                          "[ ${calculator.stack.join(",")} ]",
                           style: const TextStyle(
                             color: Colors.black,
                             fontSize: 20.0,
@@ -47,7 +47,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       child: Padding(
                         padding: const EdgeInsets.all(20.0),
                         child: Text(
-                          input,
+                          calculator.input,
                           style: const TextStyle(
                               color: Colors.black,
                               fontSize: 32.0,
@@ -71,45 +71,33 @@ class _MyHomePageState extends State<MyHomePage> {
                 StaggeredGridTile.count(
                   crossAxisCellCount: 1,
                   mainAxisCellCount: 1,
-                  child: buildButton(
-                    'CLR',
-                    context,
-                    color: NeumorphicColors.accent,
-                    onClicked: ClearInput
-                  ),
+                  child: buildButton('CLR', context,
+                      color: NeumorphicColors.accent,
+                      onClicked: calculator.clearInput),
                 ),
                 StaggeredGridTile.count(
                   crossAxisCellCount: 1,
                   mainAxisCellCount: 1,
-                  child: buildButton(
-                    'POP',
-                    context,
-                    color: NeumorphicColors.accent,
-                    onClicked: PopNumber
-                  ),
+                  child: buildButton('POP', context,
+                      color: NeumorphicColors.accent,
+                      onClicked: calculator.popNumber),
                 ),
                 //buildButton('/', context),
                 StaggeredGridTile.count(
                   crossAxisCellCount: 1,
                   mainAxisCellCount: 1,
-                  child: buildButton(
-                    '/',
-                    context,
-                    bgColor: NeumorphicColors.accent,
-                    color: Colors.white,
-                    onClicked: Division
-                  ),
+                  child: buildButton('/', context,
+                      bgColor: NeumorphicColors.accent,
+                      color: Colors.white,
+                      onClicked: calculator.division),
                 ),
                 StaggeredGridTile.count(
                   crossAxisCellCount: 1,
                   mainAxisCellCount: 1,
-                  child: buildButton(
-                    '*',
-                    context,
-                    bgColor: NeumorphicColors.accent,
-                    color: Colors.white,
-                    onClicked: Multiplication
-                  ),
+                  child: buildButton('*', context,
+                      bgColor: NeumorphicColors.accent,
+                      color: Colors.white,
+                      onClicked: calculator.multiplication),
                 ),
 
                 // 2nd Row
@@ -140,13 +128,10 @@ class _MyHomePageState extends State<MyHomePage> {
                 StaggeredGridTile.count(
                   crossAxisCellCount: 1,
                   mainAxisCellCount: 1,
-                  child: buildButton(
-                    '-',
-                    context,
-                    bgColor: NeumorphicColors.accent,
-                    color: Colors.white,
-                    onClicked: Subtraction
-                  ),
+                  child: buildButton('-', context,
+                      bgColor: NeumorphicColors.accent,
+                      color: Colors.white,
+                      onClicked: calculator.subtraction),
                 ),
 
                 // 3rd Row
@@ -177,13 +162,10 @@ class _MyHomePageState extends State<MyHomePage> {
                 StaggeredGridTile.count(
                   crossAxisCellCount: 1,
                   mainAxisCellCount: 1,
-                  child: buildButton(
-                    '+',
-                    context,
-                    bgColor: NeumorphicColors.accent,
-                    color: Colors.white,
-                    onClicked: Addition
-                  ),
+                  child: buildButton('+', context,
+                      bgColor: NeumorphicColors.accent,
+                      color: Colors.white,
+                      onClicked: calculator.addition),
                 ),
 
                 // 4th Row
@@ -214,24 +196,18 @@ class _MyHomePageState extends State<MyHomePage> {
                 StaggeredGridTile.count(
                   crossAxisCellCount: 1,
                   mainAxisCellCount: 2,
-                  child: buildButton(
-                    'ENT',
-                    context,
-                    bgColor: NeumorphicColors.accent,
-                    color: Colors.white,
-                    onClicked: AddNumber
-                  ),
+                  child: buildButton('ENT', context,
+                      bgColor: NeumorphicColors.accent,
+                      color: Colors.white,
+                      onClicked: calculator.addNumber),
                 ),
 
                 // 5th Row
                 StaggeredGridTile.count(
                   crossAxisCellCount: 1,
                   mainAxisCellCount: 1,
-                  child: buildButton(
-                    '+/-',
-                    context,
-                    onClicked: InvertNumber
-                  ),
+                  child: buildButton('+/-', context,
+                      onClicked: calculator.invertNumber),
                 ),
                 StaggeredGridTile.count(
                   crossAxisCellCount: 1,
@@ -244,11 +220,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 StaggeredGridTile.count(
                   crossAxisCellCount: 1,
                   mainAxisCellCount: 1,
-                  child: buildButton(
-                    '.',
-                    context,
-                    onClicked: AddFloating
-                  ),
+                  child: buildButton('.', context,
+                      onClicked: calculator.addFloating),
                 ), // buildButton('=', context),
               ],
             ),
@@ -256,80 +229,6 @@ class _MyHomePageState extends State<MyHomePage> {
         ],
       ),
     );
-  }
-
-  void InvertNumber(){
-    input = (-1 * double.parse(input)).toString();
-  }
-
-  void AddNumber(){
-    stack.add(double.parse(input));
-    input = "";
-  }
-
-  void PopNumber(){
-    if (stack.isNotEmpty) {
-      double lastNumber = stack.removeLast();
-      input = lastNumber.toString();
-    }
-  }
-
-  void ClearInput(){
-    input = "";
-  }
-
-  void AddFloating(){
-    if(!input.contains(".")){
-      input += ".";
-    }
-  }
-
-  void Addition() {
-    if (stack.length >= 2) {
-      double num1 = stack.removeLast();
-      double num2 = stack.removeLast();
-      double result = num1 + num2;
-      stack.add(result);
-    } else {
-      print("Not enough elements in the stack for this operation");
-    }
-  }
-
-  void Subtraction() {
-    if (stack.length >= 2) {
-      double num1 = stack.removeLast();
-      double num2 = stack.removeLast();
-      double result = num2 - num1;    // Notice that num2 is subtracted by num1
-      stack.add(result);
-    } else {
-      print("Not enough elements in the stack for this operation");
-    }
-  }
-
-  void Multiplication() {
-    if (stack.length >= 2) {
-      double num1 = stack.removeLast();
-      double num2 = stack.removeLast();
-      double result = num1 * num2;
-      stack.add(result);
-    } else {
-      print("Not enough elements in the stack for this operation");
-    }
-  }
-
-  void Division() {
-    if (stack.length >= 2) {
-      double num1 = stack.removeLast();
-      double num2 = stack.removeLast();
-      if (num1 != 0) {
-        double result = num2 / num1;  // Notice that num2 is divided by num1
-        stack.add(result);
-      } else {
-        print("Cannot divide by zero");
-      }
-    } else {
-      print("Not enough elements in the stack for this operation");
-    }
   }
 
   Widget buildButton(
@@ -346,7 +245,7 @@ class _MyHomePageState extends State<MyHomePage> {
         onPressed: () {
           setState(() {
             if (onClicked == null) {
-              input += buttonText;
+              calculator.input += buttonText;
             } else {
               onClicked();
             }
