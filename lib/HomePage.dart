@@ -56,6 +56,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 padding: const EdgeInsets.all(20.0),
                                 child: Text(
                                   calculator.input,
+                                  key: const Key("Display"),
                                   style: const TextStyle(
                                       color: Colors.black,
                                       fontSize: 32.0,
@@ -79,14 +80,14 @@ class _MyHomePageState extends State<MyHomePage> {
                         StaggeredGridTile.count(
                           crossAxisCellCount: 1,
                           mainAxisCellCount: 1,
-                          child: buildButton('CLR', context,
+                          child: buildButton('CLR', context, const Key('CLR'),
                               color: NeumorphicColors.accent,
                               onClicked: calculator.clearInput),
                         ),
                         StaggeredGridTile.count(
                           crossAxisCellCount: 1,
                           mainAxisCellCount: 1,
-                          child: buildButton('POP', context,
+                          child: buildButton('POP', context, const Key('POP'),
                               color: NeumorphicColors.accent,
                               onClicked: calculator.popNumber),
                         ),
@@ -94,7 +95,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         StaggeredGridTile.count(
                           crossAxisCellCount: 1,
                           mainAxisCellCount: 1,
-                          child: buildButton('/', context,
+                          child: buildButton('/', context, const Key('/'),
                               bgColor: NeumorphicColors.accent,
                               color: Colors.white,
                               onClicked: calculator.division),
@@ -102,7 +103,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         StaggeredGridTile.count(
                           crossAxisCellCount: 1,
                           mainAxisCellCount: 1,
-                          child: buildButton('*', context,
+                          child: buildButton('*', context, const Key('*'),
                               bgColor: NeumorphicColors.accent,
                               color: Colors.white,
                               onClicked: calculator.multiplication),
@@ -115,6 +116,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           child: buildButton(
                             '7',
                             context,
+                            const Key('7'),
                           ),
                         ),
                         StaggeredGridTile.count(
@@ -123,6 +125,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           child: buildButton(
                             '8',
                             context,
+                            const Key('8'),
                           ),
                         ),
                         StaggeredGridTile.count(
@@ -131,12 +134,14 @@ class _MyHomePageState extends State<MyHomePage> {
                           child: buildButton(
                             '9',
                             context,
+                            const Key('9'),
                           ),
                         ),
                         StaggeredGridTile.count(
                           crossAxisCellCount: 1,
                           mainAxisCellCount: 1,
                           child: buildButton('-', context,
+                              const Key('-'),
                               bgColor: NeumorphicColors.accent,
                               color: Colors.white,
                               onClicked: calculator.subtraction),
@@ -149,6 +154,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           child: buildButton(
                             '4',
                             context,
+                            const Key('4'),
                           ),
                         ),
                         StaggeredGridTile.count(
@@ -157,6 +163,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           child: buildButton(
                             '5',
                             context,
+                            const Key('5'),
                           ),
                         ),
                         StaggeredGridTile.count(
@@ -165,12 +172,14 @@ class _MyHomePageState extends State<MyHomePage> {
                           child: buildButton(
                             '6',
                             context,
+                            const Key('6'),
                           ),
                         ),
                         StaggeredGridTile.count(
                           crossAxisCellCount: 1,
                           mainAxisCellCount: 1,
                           child: buildButton('+', context,
+                              const Key('+'),
                               bgColor: NeumorphicColors.accent,
                               color: Colors.white,
                               onClicked: calculator.addition),
@@ -183,6 +192,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           child: buildButton(
                             '1',
                             context,
+                            const Key('1'),
                           ),
                         ),
                         StaggeredGridTile.count(
@@ -191,6 +201,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           child: buildButton(
                             '2',
                             context,
+                            const Key('2'),
                           ),
                         ),
                         StaggeredGridTile.count(
@@ -199,12 +210,14 @@ class _MyHomePageState extends State<MyHomePage> {
                           child: buildButton(
                             '3',
                             context,
+                            const Key('3'),
                           ),
                         ),
                         StaggeredGridTile.count(
                           crossAxisCellCount: 1,
                           mainAxisCellCount: 2,
                           child: buildButton('ENT', context,
+                              const Key('ENT'),
                               bgColor: NeumorphicColors.accent,
                               color: Colors.white,
                               onClicked: calculator.addNumber),
@@ -215,6 +228,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           crossAxisCellCount: 1,
                           mainAxisCellCount: 1,
                           child: buildButton('+/-', context,
+                              const Key('+/-'),
                               onClicked: calculator.invertNumber),
                         ),
                         StaggeredGridTile.count(
@@ -223,12 +237,14 @@ class _MyHomePageState extends State<MyHomePage> {
                           child: buildButton(
                             '0',
                             context,
+                            const Key('0'),
                           ),
                         ),
                         StaggeredGridTile.count(
                           crossAxisCellCount: 1,
                           mainAxisCellCount: 1,
                           child: buildButton('.', context,
+                              const Key('.'),
                               onClicked: calculator.addFloating),
                         ), // buildButton('=', context),
                       ],
@@ -245,7 +261,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Widget buildButton(
     String buttonText,
-    BuildContext context, {
+    BuildContext context,
+    Key? key, {
     NeumorphicShape shape = NeumorphicShape.flat,
     Color color = Colors.black,
     Color? bgColor,
@@ -254,6 +271,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return Padding(
       padding: const EdgeInsets.all(12.0),
       child: NeumorphicButton(
+        key: key,
         onPressed: () {
           setState(() {
             if (onClicked == null) {
